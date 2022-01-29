@@ -1,5 +1,6 @@
 import P5 from "p5";
 import { renderPopulation } from "./charts/population";
+import { renderSpeeds } from "./charts/speed";
 import { Bacteria } from "./classes/Bacteria";
 import { Creature } from "./classes/creature";
 import { Eatable } from "./classes/Eatable";
@@ -8,8 +9,6 @@ import { Flesh } from "./classes/Flesh";
 import { config } from "./config";
 
 import "./global";
-
-const populations = [];
 
 new P5((p5: P5) => {
   const creatures: Creature[] = Bacteria.generate(p5, config.creaturesCount);
@@ -38,6 +37,7 @@ new P5((p5: P5) => {
       }
     }
 
+    renderSpeeds(p5, creatures);
     renderPopulation(p5, creatures.length);
   };
 });

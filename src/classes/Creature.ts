@@ -7,7 +7,8 @@ export abstract class Creature {
     protected p5: P5,
     protected energy: number,
     protected energyPerFrame: number,
-    public pos: P5.Vector
+    public pos: P5.Vector,
+    public speed: number
   ) {}
 
   abstract eat(energy: number): void;

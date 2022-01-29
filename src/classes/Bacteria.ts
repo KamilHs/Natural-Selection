@@ -7,7 +7,7 @@ const config = globalConfig.bacteria;
 
 export class Bacteria extends Creature {
   private dir: P5.Vector;
-  constructor(p5: P5, pos: P5.Vector, private speed: number) {
+  constructor(p5: P5, pos: P5.Vector, speed: number) {
     super(
       p5,
       config.energy.initial,
@@ -16,7 +16,8 @@ export class Bacteria extends Creature {
           0,
           (speed - config.speed.initial) * config.speed.speedEnergyFactor
         ),
-      pos
+      pos,
+      speed
     );
 
     this.dir = p5.createVector(0, 0);

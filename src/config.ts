@@ -22,7 +22,7 @@ export const config = {
       initial: 4,
       max: 10,
       epsilon: 0.2,
-      speedEnergyFactor: 0.005,
+      speedEnergyFactor: 0.0026,
     },
     width: 14,
     height: 7,
@@ -37,6 +37,14 @@ export const config = {
       tick: 1,
       bg: [255, 255, 255],
       itemColor: [255, 0, 0],
+    },
+    speed: {
+      show: true,
+      width: 100,
+      height: 100,
+      tick: 4,
+      bg: [255, 255, 255],
+      itemColor: [0, 255, 0],
     },
   },
 };
