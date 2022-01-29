@@ -1,8 +1,8 @@
 export const config = {
   bg: [230],
   creaturesCount: 1,
-  foodInterval: 30,
-  foodCount: 60,
+  foodInterval: 20,
+  foodCount: 100,
   flesh: {
     energy: 0.2,
     radius: 5,
@@ -26,5 +26,17 @@ export const config = {
     },
     width: 14,
     height: 7,
+  },
+  charts: {
+    population: {
+      show: true,
+      width: null,
+      height: 100,
+      maxValue: 0,
+      frameStep: 5,
+      tick: 1,
+      bg: [255, 255, 255],
+      itemColor: [255, 0, 0],
+    },
   },
 };

@@ -101,8 +101,6 @@ export class Bacteria extends Creature {
       config.speed.min
     );
 
-    console.log(this.speed, speed);
-
     return new Bacteria(this.p5, this.pos.copy(), speed);
   }
 

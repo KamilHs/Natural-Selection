@@ -1,4 +1,5 @@
 import P5 from "p5";
+import { renderPopulation } from "./charts/population";
 import { Bacteria } from "./classes/Bacteria";
 import { Creature } from "./classes/creature";
 import { Eatable } from "./classes/Eatable";
@@ -8,9 +9,12 @@ import { config } from "./config";
 
 import "./global";
 
+const populations = [];
+
 new P5((p5: P5) => {
   const creatures: Creature[] = Bacteria.generate(p5, config.creaturesCount);
   const eatables: Eatable[] = Flesh.generate(p5, config.foodCount);
+
 
   p5.setup = () => {
     const canvas = p5.createCanvas(p5.windowWidth, p5.windowHeight);
@@ -33,5 +37,7 @@ new P5((p5: P5) => {
         creatures.push(creature.divide());
       }
     }
+
+    renderPopulation(p5, creatures.length);
   };
 });
