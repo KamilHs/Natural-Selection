@@ -1,13 +1,22 @@
 export const config = {
   creaturesCount: 1,
-  foodInterval: 30,
-  foodCount: 10,
+  foodInterval: 60,
+  foodCount: 60,
   bacteria: {
-    energy: 0.5,
-    energyPerFrame: 0.00001,
-    minEnergyForDivide: 0.8,
-    maxEnergy: 1,
-    minSpeed: 1,
-    maxSpeed: 10,
+    energy : {
+      max: 1,
+      initial: 0.8,
+      minForDivide: 0.9,
+      lossAfterDivide: 0.5,
+      lossPerFrame: 0.01
+    },
+    speed: {
+      min: 1,
+      max: 10,
+      epsilon: 0.2,
+      speedEnergyFactor: 0.0000
+    },
+    width: 14,
+    height: 7,
   },
 };
