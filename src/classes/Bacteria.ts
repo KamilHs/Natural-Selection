@@ -3,32 +3,48 @@ import { config as globalConfig } from "../config";
 import { Creature } from "./creature";
 import { Eatable } from "./Eatable";
 
-const width = 10;
-const height = 5;
-
 const config = globalConfig.bacteria;
 
 export class Bacteria extends Creature {
   private dir: P5.Vector;
   constructor(p5: P5, pos: P5.Vector, private speed: number) {
-    
     super(
       p5,
       config.energy.initial,
-      config.energy.lossPerFrame+ speed * config.speed.speedEnergyFactor,
+      config.energy.lossPerFrame +
+        Math.max(
+          0,
+          (speed - config.speed.initial) * config.speed.speedEnergyFactor
+        ),
       pos
-      );
-      
+    );
+
     this.dir = p5.createVector(0, 0);
+  }
+
+  static generate(p5: P5, count: number): Bacteria[] {
+    return Array.from({
+      length: count,
+    }).map(
+      () =>
+        new Bacteria(
+          p5,
+          p5.createVector(
+            p5.random(p5.windowWidth),
+            p5.random(p5.windowHeight)
+          ),
+          p5.random(config.speed.min, config.speed.max)
+        )
+    );
   }
 
   draw(): void {
     this.p5.push();
     this.p5.noStroke();
-    this.p5.fill(200, 0, 0);
+    this.p5.fill(config.color);
     this.p5.rect(
-      this.pos.x - width / 2,
-      this.pos.y - height / 2,
+      this.pos.x - config.width / 2,
+      this.pos.y - config.height / 2,
       config.width,
       config.height
     );
