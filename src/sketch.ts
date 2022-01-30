@@ -14,7 +14,6 @@ new P5((p5: P5) => {
   const creatures: Creature[] = Bacteria.generate(p5, config.creaturesCount);
   const eatables: Eatable[] = Flesh.generate(p5, config.foodCount);
 
-
   p5.setup = () => {
     const canvas = p5.createCanvas(p5.windowWidth, p5.windowHeight);
     canvas.parent("root");
@@ -22,6 +21,14 @@ new P5((p5: P5) => {
 
   p5.draw = () => {
     p5.background(config.bg);
+    for (let i = 0; i < eatables.length; i++) {
+      const eatable = eatables[i];
+      if (eatable.eaten) {
+        eatables.remove(i);
+        i--;
+      }
+      eatable.draw();
+    }
     eatables.forEach((eatable) => eatable.draw());
     if (p5.frameCount % config.foodInterval === 0) {
       eatables.push(...Flesh.generate(p5, config.foodCount));
@@ -32,6 +39,7 @@ new P5((p5: P5) => {
       creature.live(eatables);
       if (creature.willDie()) {
         creatures.remove(i);
+        i--;
       } else if (creature.canDivide()) {
         creatures.push(creature.divide());
       }

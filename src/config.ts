@@ -2,7 +2,7 @@ export const config = {
   bg: [230],
   creaturesCount: 1,
   foodInterval: 20,
-  foodCount: 100,
+  foodCount: 300,
   flesh: {
     energy: 0.2,
     radius: 5,
@@ -22,7 +22,7 @@ export const config = {
       initial: 4,
       max: 10,
       epsilon: 0.2,
-      speedEnergyFactor: 0.0026,
+      speedEnergyFactor: 0.0025,
     },
     width: 14,
     height: 7,

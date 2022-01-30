@@ -7,6 +7,7 @@ const config = globalConfig.bacteria;
 
 export class Bacteria extends Creature {
   private dir: P5.Vector;
+  private prey: Eatable | null = null;
   constructor(p5: P5, pos: P5.Vector, speed: number) {
     super(
       p5,
@@ -58,25 +59,29 @@ export class Bacteria extends Creature {
 
   hunt(eatables: Eatable[]) {
     let record: number = Infinity;
-    let closestIndex: number | null = null;
+    let closest: Eatable | null = null;
 
-    eatables.map((eatable, i) => {
-      const distance = this.distanceTo(eatable.pos);
+    if (!this.prey || this.prey.eaten) {
+      eatables.forEach((eatable) => {
+        const distance = this.distanceTo(eatable.pos);
 
-      if (record > distance + 10) {
-        record = distance;
-        closestIndex = i;
+        if (record > distance + 10) {
+          record = distance;
+          closest = eatable;
+        }
+      });
+
+      this.prey = closest;
+    }
+
+    if (this.prey && !this.prey.eaten) {
+      this.dir = P5.Vector.sub(this.prey.pos, this.pos).normalize();
+      
+      if (this.distanceTo(this.prey.pos) < this.speed) {
+        this.prey.setEaten();
+        this.eat(this.prey.energy);
+        this.prey = null;
       }
-    });
-
-    const closest = eatables[closestIndex];
-
-    if (closest) {
-      if (record < this.speed) {
-        this.eat(closest.energy);
-        eatables.remove(closestIndex);
-      }
-      this.dir = P5.Vector.sub(closest.pos, this.pos).normalize();
     } else {
       this.dir = this.p5.createVector(0, 0);
     }
