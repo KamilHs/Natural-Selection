@@ -10,6 +10,11 @@ import { config } from "./config";
 
 import "./global";
 
+const populations = {
+  amoeba: [],
+  bacteria: [],
+};
+
 new P5((p5: P5) => {
   const creatures: Creature[] = Bacteria.generate(p5, config.creaturesCount);
   const eatables: Eatable[] = Flesh.generate(p5, config.foodCount);
@@ -36,7 +41,7 @@ new P5((p5: P5) => {
     for (let i = 0; i < creatures.length; i++) {
       const creature = creatures[i];
       creature.draw();
-      creature.live(eatables);
+      creature.live([...eatables, ...creatures]);
       if (creature.willDie()) {
         creatures.remove(i);
         i--;
@@ -46,6 +51,27 @@ new P5((p5: P5) => {
     }
 
     renderSpeeds(p5, creatures);
-    renderPopulation(p5, creatures.length);
+    if (config.charts.population.show) {
+      Object.entries(
+        creatures.reduce(
+          (acc, creature) => {
+            const key = creature instanceof Bacteria ? "bacteria" : "amoeba";
+            return { ...acc, [key]: acc[key] + 1 };
+          },
+          { bacteria: 0, amoeba: 0 }
+        )
+      ).forEach(([species, value], index) => {
+        if (p5.frameCount % config.charts.population.frameStep === 0) {
+          populations[species].push(value);
+        }
+
+        renderPopulation(
+          p5,
+          populations[species],
+          config[species].color,
+          index * config.charts.population.height
+        );
+      });
+    }
   };
 });

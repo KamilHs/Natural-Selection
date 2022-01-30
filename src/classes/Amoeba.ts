@@ -1,16 +1,14 @@
 import P5 from "p5";
 import { config as globalConfig } from "../config";
-import { Amoeba } from "./Amoeba";
+import { Bacteria } from "./Bacteria";
 import { Creature } from "./creature";
-import { Eatable } from "./Eatable";
 import { Entity } from "./Entity";
 
-const config = globalConfig.bacteria;
+const config = globalConfig.amoeba;
 
-export class Bacteria extends Creature {
+export class Amoeba extends Creature {
   private dir: P5.Vector;
-  private prey: Eatable | null = null;
-  public alive: boolean = true;
+  private prey: Bacteria | null = null;
   constructor(p5: P5, pos: P5.Vector, speed: number) {
     super(
       p5,
@@ -27,12 +25,12 @@ export class Bacteria extends Creature {
     this.dir = p5.createVector(0, 0);
   }
 
-  static generate(p5: P5, count: number): Bacteria[] {
+  static generate(p5: P5, count: number): Amoeba[] {
     return Array.from({
       length: count,
     }).map(
       () =>
-        new Bacteria(
+        new Amoeba(
           p5,
           p5.createVector(
             p5.random(p5.windowWidth),
@@ -62,11 +60,11 @@ export class Bacteria extends Creature {
 
   hunt(entities: Entity[]) {
     let record: number = Infinity;
-    let closest: Eatable | null = null;
+    let closest: Bacteria | null = null;
 
-    if (!this.prey || this.prey.eaten) {
+    if (!this.prey || !this.prey.alive) {
       entities.forEach((entity) => {
-        if (!(entity instanceof Eatable)) return;
+        if (!(entity instanceof Bacteria)) return;
         const distance = this.distanceTo(entity.pos);
 
         if (record > distance + 10) {
@@ -78,12 +76,11 @@ export class Bacteria extends Creature {
       this.prey = closest;
     }
 
-    if (this.prey && !this.prey.eaten) {
+    if (this.prey && this.prey.alive) {
       this.dir = P5.Vector.sub(this.prey.pos, this.pos).normalize();
 
       if (this.distanceTo(this.prey.pos) < this.speed) {
-        this.prey.setEaten();
-        this.eat(this.prey.energy);
+        this.eat(this.prey.kill());
         this.prey = null;
       }
     } else {
@@ -96,43 +93,26 @@ export class Bacteria extends Creature {
   }
 
   willDie(): boolean {
-    return this.alive === false;
+    return this.energy < 0;
   }
 
-  kill(): number {
-    this.alive = false;
-    return this.energy;
-  }
-
-  divide(): Bacteria | Amoeba {
+  divide(): Amoeba {
     this.energy -= config.energy.lossAfterDivide;
-
-    const isAmoeba = Math.random() < config.probOfAmoeba;
 
     const speed = Math.max(
       Math.min(
         this.speed +
-          (Math.random() < 0.5 ? 1 : -1) *
-            (isAmoeba
-              ? globalConfig.amoeba.speed.epsilon
-              : config.speed.epsilon * this.speed),
-        isAmoeba ? globalConfig.amoeba.speed.max : config.speed.max
+          (Math.random() < 0.5 ? 1 : -1) * config.speed.epsilon * this.speed,
+        config.speed.max
       ),
-      isAmoeba ? globalConfig.amoeba.speed.min : config.speed.min
+      config.speed.min
     );
 
-    return isAmoeba
-      ? new Amoeba(this.p5, this.pos.copy(), speed)
-      : new Bacteria(this.p5, this.pos.copy(), speed);
+    return new Amoeba(this.p5, this.pos.copy(), speed);
   }
 
   live(entities: Entity[]): void {
-    if (!this.alive) return;
-
     this.energy -= this.energyPerFrame;
-    if (this.energy < 0) {
-      this.alive = false;
-    }
     this.hunt(entities);
     this.pos.add(this.dir.x * this.speed, this.dir.y * this.speed);
   }

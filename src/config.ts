@@ -1,18 +1,37 @@
 export const config = {
   bg: [230],
   creaturesCount: 1,
-  foodInterval: 20,
-  foodCount: 300,
+  foodInterval: 25,
+  foodCount: 400,
   flesh: {
     energy: 0.2,
     radius: 5,
     color: [0, 0, 255],
   },
+  amoeba: {
+    color: [100, 0, 100],
+    energy: {
+      max: 2,
+      initial: 1.1,
+      minForDivide: 1.8,
+      lossAfterDivide: 1,
+      lossPerFrame: 0.009,
+    },
+    speed: {
+      min: 2,
+      initial: 4,
+      max: 12,
+      epsilon: 0.2,
+      speedEnergyFactor: 0.0025,
+    },
+    width: 14,
+    height: 7,
+  },
   bacteria: {
     color: [255, 0, 0],
     energy: {
       max: 1,
-      initial: 0.8,
+      initial: 0.7,
       minForDivide: 0.9,
       lossAfterDivide: 0.5,
       lossPerFrame: 0.005,
@@ -22,10 +41,11 @@ export const config = {
       initial: 4,
       max: 10,
       epsilon: 0.2,
-      speedEnergyFactor: 0.0025,
+      speedEnergyFactor: 0.005,
     },
     width: 14,
     height: 7,
+    probOfAmoeba: 0.001,
   },
   charts: {
     population: {

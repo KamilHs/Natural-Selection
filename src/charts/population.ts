@@ -4,12 +4,15 @@ import { config as globalConfig } from "../config";
 
 const config = globalConfig.charts.population;
 
-const populations = [];
-
-export const renderPopulation = (p5: P5, population: number) => {
+export const renderPopulation = (
+  p5: P5,
+  populations: number[],
+  color: number[],
+  offsetBottom: number = 0
+) => {
   if (config.show) {
-    if (p5.frameCount % config.frameStep) {
-      populations.push(population);
+    const y0 = p5.height - offsetBottom;
+    if (p5.frameCount % config.frameStep === 0) {
       if (populations.length >= p5.width / config.tick) {
         populations.shift();
       }
@@ -17,19 +20,18 @@ export const renderPopulation = (p5: P5, population: number) => {
 
     p5.push();
     p5.fill(config.bg);
-    p5.stroke(config.itemColor);
+    p5.stroke(color);
     p5.strokeWeight(config.tick);
-    p5.rect(0, p5.height - config.height, p5.width, config.height);
+    p5.rect(0, y0 - config.height, p5.width, config.height);
 
     const max = Math.max(...populations);
 
     populations.forEach((population, i) =>
       p5.line(
         i * config.tick,
-        p5.height,
+        y0,
         i * config.tick,
-        p5.height -
-          p5.map(population, 0, config.maxValue || max, 0, config.height)
+        y0 - p5.map(population, 0, config.maxValue || max, 0, config.height)
       )
     );
     p5.pop();
