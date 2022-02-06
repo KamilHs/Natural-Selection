@@ -13,10 +13,12 @@ public class Amoeba extends Creature {
     
     void draw() {
         push();
+        translate(pos.x, pos.y);
+        rotate(dir.mult(speed).heading());
         fill(255,0,255);
+        rectMode(CENTER);
         rect(
-            this.pos.x - config.amoeba.width / 2,
-            this.pos.y - config.amoeba.height / 2,
+            0,0,
             config.amoeba.width,
             config.amoeba.height
            );
@@ -60,7 +62,7 @@ public class Amoeba extends Creature {
     void live(ArrayList<Entity> entities) {
         if (!alive) return;
         energy -= energyPerFrame;
-
+        
         if (energy < 0) {
             alive = false;
         }

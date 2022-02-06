@@ -13,14 +13,18 @@ public class Bacteria extends Creature {
     
     void draw() {
         push();
+        translate(pos.x, pos.y);
+        rotate(dir.heading());
         fill(255,0,0);
+        rectMode(CENTER);
         rect(
-            this.pos.x - config.bacteria.width / 2,
-            this.pos.y - config.bacteria.height / 2,
+           0,
+            0,
             config.bacteria.width,
             config.bacteria.height
            );
         pop();
+
     }
     
     boolean isAlive() {
