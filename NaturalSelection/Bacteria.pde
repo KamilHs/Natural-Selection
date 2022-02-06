@@ -9,7 +9,7 @@ public class Bacteria extends Creature {
             0,
            (speed - config.bacteria.speed.get("initial")) * config.bacteria.speed.get("speedEnergyFactor")
            );
-        println(speed);
+        // println(speed);
     }
     
     void draw() {
@@ -77,15 +77,38 @@ public class Bacteria extends Creature {
     
     Creature replicate() {
         energy -= config.bacteria.energy.get("lossAfterReplicate");
-        
+
+        boolean isAmoeba = false;
+
+        double epsilon;
+        double maxSpeed;
+        double minSpeed;
+
+        if(Math.random() < (float)config.bacteria.probOfAmoeba) {
+            isAmoeba = true;
+            epsilon = (double)config.amoeba.speed.get("epsilon");
+            maxSpeed = (double)config.amoeba.speed.get("max");
+            minSpeed = (double)config.amoeba.speed.get("min");
+        } else {
+            epsilon = (double)config.bacteria.speed.get("epsilon");
+            maxSpeed = (double)config.bacteria.speed.get("max");
+            minSpeed = (double)config.bacteria.speed.get("min");
+        }
+
         double newSpeed = Math.max(
             Math.min(
-            speed +
-           (Math.random() < 0.5 ? 1 : - 1) * config.bacteria.speed.get("epsilon") * speed,
-            config.bacteria.speed.get("max")),
-            config.bacteria.speed.get("min")
-           );
-        
+                speed +
+                (Math.random() < 0.5 ? 1 : - 1) * epsilon * speed,
+                maxSpeed
+            ),
+            minSpeed
+        );
+
+        if (isAmoeba) return new Amoeba(pos.copy(), newSpeed);
         return new Bacteria(pos.copy(), newSpeed);
+    }
+
+    void setEaten() {
+        this.alive = false;
     }
 }

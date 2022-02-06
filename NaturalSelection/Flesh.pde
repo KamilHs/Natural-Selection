@@ -17,7 +17,7 @@ class Flesh extends Entity {
     boolean isAlive() {
         return !isEaten;
     }
-
+    
     void setEaten() {
         this.isEaten = true;
     }
