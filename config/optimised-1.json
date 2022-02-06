@@ -16,7 +16,7 @@
         "initial": 1.1,
         "minForReplicate": 2,
         "lossAfterReplicate": 1.1,
-        "lossPerFrame": 0.015
+        "lossPerFrame": 0.012
       },
       "speed": {
         "min": 2,
