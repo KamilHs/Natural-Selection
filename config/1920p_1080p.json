@@ -16,12 +16,12 @@
         "initial": 1.1,
         "minForReplicate": 1.8,
         "lossAfterReplicate": 1,
-        "lossPerFrame": 0.02
+        "lossPerFrame": 0.012
       },
       "speed": {
-        "min": 1,
-        "initial": 3,
-        "max": 6,
+        "min": 2,
+        "initial": 4,
+        "max": 8,
         "epsilon": 0.2,
         "speedEnergyFactor": 0.005
       },
@@ -54,8 +54,8 @@
       },
       "speed": {
         "min": 1,
-        "initial": 2,
-        "max": 5,
+        "initial": 3,
+        "max": 6,
         "epsilon": 0.2,
         "speedEnergyFactor": 0.005
       },

@@ -11,9 +11,9 @@ HistogramGraph amoebaSpeedGraph;
 
 void setup() {
     // fullScreen();
-    size(1080,720);
+    size(1920,1080);
     noStroke();
-    config = new Config("../config/1080p_720p.json");
+    config = new Config("../config/1920p_1080p.json");
     for (int i = 0; i < config.flesh.count; ++i) {
         entities.add(new Flesh());
 }
