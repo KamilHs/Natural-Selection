@@ -10,4 +10,14 @@ static class Utils {
     static double map(double initial, double inMin, double inMax, double outMin, double outMax) {
         return outMin + (initial - inMin) * (outMax - outMin) / (inMax - inMin);
     }
+    
+    static int[] extractColor(JSONArray jsonArr) {
+        int arr[] = new int[jsonArr.size()];
+        
+        for (int i = 0; i < jsonArr.size(); ++i) {
+            arr[i] =jsonArr.getInt(i);
+        }
+
+        return arr;
+    }
 }

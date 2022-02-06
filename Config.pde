@@ -12,11 +12,7 @@ class FleshConfig {
     energy = config.getFloat("energy");
 
     JSONArray cJson = config.getJSONArray("color");
-    c = new int[cJson.size()];
-
-    for (int i = 0; i < cJson.size(); ++i) {
-      c[i] = cJson.getInt(i);
-    }
+    c = Utils.extractColor(cJson);
   }
 }
 
@@ -66,11 +62,8 @@ class BacteriaConfig {
     heatTolerance.put("heatEnergyFactor", heatToleranceJson.getDouble("heatEnergyFactor"));
 
     JSONArray cJson = config.getJSONArray("color");
-    c = new int[cJson.size()];
+    c = Utils.extractColor(cJson);
 
-    for (int i = 0; i < cJson.size(); ++i) {
-      c[i] = cJson.getInt(i);
-    }
   }
 }
 
@@ -118,11 +111,7 @@ class AmoebaConfig {
     heatTolerance.put("heatEnergyFactor", heatToleranceJson.getDouble("heatEnergyFactor"));
 
     JSONArray cJson = config.getJSONArray("color");
-    c = new int[cJson.size()];
-
-    for (int i = 0; i < cJson.size(); ++i) {
-      c[i] = cJson.getInt(i);
-    }
+    c = Utils.extractColor(cJson);
   }
 }
 
@@ -136,11 +125,7 @@ class SeasonConfig {
     max =  config.getDouble("max");
 
     JSONArray bgJson = config.getJSONArray("bg");
-    bg = new int[bgJson.size()];
-
-    for (int i = 0; i < bgJson.size(); ++i) {
-      bg[i] = bgJson.getInt(i);
-    }
+    bg = Utils.extractColor(bgJson);
   }
 }
 
@@ -166,18 +151,6 @@ class ClimateConfig {
   }
 }
 
-class ColorConfig {
-  int r;
-  int g;
-  int b;
-
-  ColorConfig(JSONObject config) {
-    r = config.getInt("r");
-    g = config.getInt("g");
-    b = config.getInt("b");
-  }
-}
-
 class GraphConfig {
   int width;
   int height;
@@ -185,7 +158,7 @@ class GraphConfig {
   int y0;
   String label;
   int tick;
-  ColorConfig color_rgb;
+  int[] grColor;
 
   GraphConfig(JSONObject config) {
     width = config.getInt("width");
@@ -194,7 +167,8 @@ class GraphConfig {
     y0 = config.getInt("y0");
     tick = config.getInt("tick");
     label = config.getString("label");
-    color_rgb = new ColorConfig(config.getJSONObject("color"));
+    JSONArray colorJson = config.getJSONArray("color");
+    grColor = Utils.extractColor(colorJson);
   }
 }
 
@@ -203,8 +177,10 @@ public class Config {
   BacteriaConfig bacteria;
   AmoebaConfig amoeba;
   ClimateConfig climate;
-  GraphConfig bacteriaGraph;
-  GraphConfig amoebaGraph;
+  GraphConfig bacteriaPopulation;
+  GraphConfig amoebaPopulation;
+  GraphConfig bacteriaSpeed;
+  GraphConfig amoebaSpeed;
   boolean showLabels = false;
 
   Config(String path) {
@@ -214,13 +190,17 @@ public class Config {
     JSONObject amoebaConfig = json.getJSONObject("amoeba");
     JSONObject climateConfig = json.getJSONObject("climate");
     JSONObject bacteriaPopulationGraphConfig = json.getJSONObject("bacteriaPopulationGraph");
-    JSONObject amoebasPopulationGraphConfig = json.getJSONObject("amoebaPopulationGraph");
+    JSONObject amoebaPopulationGraphConfig = json.getJSONObject("amoebaPopulationGraph");
+    JSONObject bacteriaSpeedGraphConfig = json.getJSONObject("bacteriaSpeedGraph");
+    JSONObject amoebaSpeedGraphConfig = json.getJSONObject("amoebaSpeedGraph");
 
     flesh = new FleshConfig(fleshConfigJson);
     bacteria = new BacteriaConfig(bacteriaConfigJson);
     amoeba = new AmoebaConfig(amoebaConfig);
     climate = new ClimateConfig(climateConfig);
-    bacteriaGraph = new GraphConfig(bacteriaPopulationGraphConfig);
-    amoebaGraph = new GraphConfig(amoebasPopulationGraphConfig);
+    bacteriaPopulation = new GraphConfig(bacteriaPopulationGraphConfig);
+    amoebaPopulation = new GraphConfig(amoebaPopulationGraphConfig);
+    bacteriaSpeed = new GraphConfig(bacteriaSpeedGraphConfig);
+    amoebaSpeed = new GraphConfig(amoebaSpeedGraphConfig);
   }
 }
