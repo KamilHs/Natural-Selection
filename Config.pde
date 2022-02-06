@@ -166,11 +166,45 @@ class ClimateConfig {
   }
 }
 
+class ColorConfig {
+  int r;
+  int g;
+  int b;
+
+  ColorConfig(JSONObject config) {
+    r = config.getInt("r");
+    g = config.getInt("g");
+    b = config.getInt("b");
+  }
+}
+
+class GraphConfig {
+  int width;
+  int height;
+  int x0;
+  int y0;
+  String label;
+  int tick;
+  ColorConfig color_rgb;
+
+  GraphConfig(JSONObject config) {
+    width = config.getInt("width");
+    height = config.getInt("height");
+    x0 = config.getInt("x0");
+    y0 = config.getInt("y0");
+    tick = config.getInt("tick");
+    label = config.getString("label");
+    color_rgb = new ColorConfig(config.getJSONObject("color"));
+  }
+}
+
 public class Config {
   FleshConfig flesh;
   BacteriaConfig bacteria;
   AmoebaConfig amoeba;
   ClimateConfig climate;
+  GraphConfig bacteriaGraph;
+  GraphConfig amoebaGraph;
   boolean showLabels = false;
 
   Config(String path) {
@@ -179,10 +213,14 @@ public class Config {
     JSONObject bacteriaConfigJson = json.getJSONObject("bacteria");
     JSONObject amoebaConfig = json.getJSONObject("amoeba");
     JSONObject climateConfig = json.getJSONObject("climate");
+    JSONObject bacteriaPopulationGraphConfig = json.getJSONObject("bacteriaPopulationGraph");
+    JSONObject amoebasPopulationGraphConfig = json.getJSONObject("amoebaPopulationGraph");
 
     flesh = new FleshConfig(fleshConfigJson);
     bacteria = new BacteriaConfig(bacteriaConfigJson);
     amoeba = new AmoebaConfig(amoebaConfig);
     climate = new ClimateConfig(climateConfig);
+    bacteriaGraph = new GraphConfig(bacteriaPopulationGraphConfig);
+    amoebaGraph = new GraphConfig(amoebasPopulationGraphConfig);
   }
 }

@@ -22,8 +22,8 @@ void setup() {
     entities.add(new Bacteria(new PVector(random(0, width), random(0, height)), config.bacteria.speed.get("initial"), config.bacteria.heatTolerance.get("initial"), config.bacteria.coldTolerance.get("initial")));
     bacteriaPopulations.add(0.0f);
     amoebaPopulations.add(0.0f);
-    bacteriaPopulationGraph = new LineGraph(displayWidth / 2, 100, 0, displayHeight - 140, 1, 255, 0, 0, "Bacteria population");
-    amoebaPopulationGraph = new LineGraph(displayWidth / 2, 100, 0, displayHeight - 240, 1, 255, 0, 255, "Amoeba population");
+    bacteriaPopulationGraph = new LineGraph(displayWidth / config.bacteriaGraph.width, config.bacteriaGraph.height, config.bacteriaGraph.x0, displayHeight - config.bacteriaGraph.y0, config.bacteriaGraph.tick, config.bacteriaGraph.color_rgb.r, config.bacteriaGraph.color_rgb.g, config.bacteriaGraph.color_rgb.b, config.bacteriaGraph.label);
+    amoebaPopulationGraph = new LineGraph(displayWidth / config.amoebaGraph.width, config.amoebaGraph.height, config.amoebaGraph.x0, displayHeight - config.amoebaGraph.y0, config.amoebaGraph.tick, config.amoebaGraph.color_rgb.r, config.amoebaGraph.color_rgb.g, config.amoebaGraph.color_rgb.b, config.amoebaGraph.label);
     bacteriaSpeedGraph = new HistogramGraph(100, 100, displayWidth / 2, displayHeight - 140, config.bacteria.speed.get("min").floatValue(), config.bacteria.speed.get("max").floatValue(), 255, 0, 0, "Bacteria speed");
     amoebaSpeedGraph = new HistogramGraph(100, 100, displayWidth / 2, displayHeight - 240, config.amoeba.speed.get("min").floatValue(), config.amoeba.speed.get("max").floatValue(), 255, 0, 255, "Amoeba speed");
 }
