@@ -66,8 +66,8 @@ public class Bacteria extends Creature {
     if (!alive) return;
     float temp = (float)config.climate.current;
     energy -= energyPerFrame +
-              temp > maxTempTolerance ? (temp - maxTempTolerance) * config.bacteria.heatTolerance.get("heatEnergyFactor") : 0 +
-              temp < minTempTolerance ? (minTempTolerance - temp) * config.bacteria.coldTolerance.get("coldEnergyFactor") : 0;
+              Math.max((temp - maxTempTolerance) * config.bacteria.heatTolerance.get("heatEnergyFactor"),0)+
+              Math.max((minTempTolerance - temp) * config.bacteria.coldTolerance.get("coldEnergyFactor"),0);
 
     if (energy < 0) {
       alive = false;

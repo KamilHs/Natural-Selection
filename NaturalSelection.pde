@@ -54,7 +54,7 @@ void draw() {
       bacteriaSpeeds.add(b.speed);
       bacteriaCount++;
     }
-    if (creature instanceof Amoeba){
+    if (creature instanceof Amoeba) {
       Amoeba a = (Amoeba)creature;
       amoebaSpeeds.add(a.speed);
       amoebaCount++;

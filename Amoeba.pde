@@ -66,8 +66,8 @@ public class Amoeba extends Creature {
     if (!alive) return;
     float temp = (float)config.climate.current;
     energy -= energyPerFrame +
-              temp > maxTempTolerance ? (temp - maxTempTolerance) * config.bacteria.heatTolerance.get("heatEnergyFactor") : 0 +
-              temp < minTempTolerance ? (minTempTolerance - temp) * config.bacteria.coldTolerance.get("coldEnergyFactor") : 0;
+      Math.max((temp - maxTempTolerance) * config.amoeba.heatTolerance.get("heatEnergyFactor"), 0) +
+      Math.max((minTempTolerance - temp) * config.amoeba.coldTolerance.get("coldEnergyFactor"), 0);
 
     if (energy < 0) {
       alive = false;
@@ -108,24 +108,24 @@ public class Amoeba extends Creature {
       config.amoeba.speed.get("max")),
       config.amoeba.speed.get("min")
       );
-    
+
     double newMaxTempTolerance = Math.max(
       Math.min(
-        maxTempTolerance +
-        randomGaussian() * heatToleranceEpsilon,
-        maxHeatTolerance
+      maxTempTolerance +
+      randomGaussian() * heatToleranceEpsilon,
+      maxHeatTolerance
       ),
       minHeatTolerance
-    );
-    
+      );
+
     double newMinTempTolerance = Math.max(
       Math.min(
-        minTempTolerance +
-        randomGaussian() * coldToleranceEpsilon,
-        maxColdTolerance
+      minTempTolerance +
+      randomGaussian() * coldToleranceEpsilon,
+      maxColdTolerance
       ),
       minColdTolerance
-    );
+      );
 
     return new Amoeba(pos.copy(), newSpeed, newMaxTempTolerance, newMinTempTolerance);
   }

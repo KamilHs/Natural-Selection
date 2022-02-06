@@ -27,14 +27,14 @@
     "coldTolerance": {
       "min": -30,
       "max": 0,
-      "initial": -15,
+      "initial": -20,
       "epsilon": 1,
       "coldEnergyFactor": 0.0005
     },
     "heatTolerance": {
       "min": 0,
       "max": 30,
-      "initial": 15,
+      "initial": 20,
       "epsilon": 1,
       "heatEnergyFactor": 0.0005
     },
@@ -60,14 +60,14 @@
     "coldTolerance": {
       "min": -30,
       "max": 0,
-      "initial": -15,
+      "initial": -20,
       "epsilon": 1,
       "coldEnergyFactor": 0.0005
     },
     "heatTolerance": {
       "min": 0,
       "max": 30,
-      "initial": 15,
+      "initial": 20,
       "epsilon": 1,
       "heatEnergyFactor": 0.0005
     },
