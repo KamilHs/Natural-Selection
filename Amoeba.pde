@@ -66,8 +66,8 @@ public class Amoeba extends Creature {
     if (!alive) return;
     float temp = (float)config.climate.current;
     energy -= energyPerFrame +
-              temp > maxTempTolerance ? (temp - maxTempTolerance) * config.bacteria.heatTolerance.get("heatEnergyFactor") : 0 +
-              temp < minTempTolerance ? (minTempTolerance - temp) * config.bacteria.coldTolerance.get("coldEnergyFactor") : 0;
+              temp > maxTempTolerance ? (temp - maxTempTolerance) * config.amoeba.heatTolerance.get("heatEnergyFactor") : 0 +
+              temp < minTempTolerance ? (minTempTolerance - temp) * config.amoeba.coldTolerance.get("coldEnergyFactor") : 0;
 
     if (energy < 0) {
       alive = false;
