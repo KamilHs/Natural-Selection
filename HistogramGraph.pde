@@ -2,8 +2,8 @@ public class HistogramGraph extends Graph {
     int tick;
     float min;
     float max;
-    HistogramGraph(int w, int h, int x0, int y0, float min, float max, int r, int g, int b) {
-        super(w, h, x0, y0, r, g, b);
+    HistogramGraph(int w, int h, int x0, int y0, float min, float max, int r, int g, int b, String label) {
+        super(w, h, x0, y0, r, g, b, label);
         this.tick = (int)(w / (max - min + 1));
         this.min = min;
         this.max = max;
@@ -33,6 +33,11 @@ public class HistogramGraph extends Graph {
                 -map(v, 0, total, 0, h)
                );
         });
+        if(config.showLabels){
+            fill(0);
+            textSize(24);
+            text(label, x0, y0 + 24);
+        }
         pop();
     }
 }

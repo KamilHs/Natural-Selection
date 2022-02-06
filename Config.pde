@@ -166,6 +166,7 @@ public class Config {
   BacteriaConfig bacteria;
   AmoebaConfig amoeba;
   ClimateConfig climate;
+  boolean showLabels = false;
 
   Config(String path) {
     JSONObject json = loadJSONObject(path);
