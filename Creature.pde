@@ -3,6 +3,8 @@ abstract class Creature extends Entity {
     protected double energyPerFrame;
     protected PVector dir;
     protected boolean alive = true;
+    protected double maxTempTolerance;
+    protected double minTempTolerance;
     
     Creature(PVector pos) {
         super(pos);

@@ -24,6 +24,20 @@
       "epsilon": 0.2,
       "speedEnergyFactor": 0.005
     },
+    "coldTolerance": {
+      "min": -30,
+      "max": 0,
+      "initial": -15,
+      "epsilon": 1,
+      "coldEnergyFactor": 0.0005
+    },
+    "heatTolerance": {
+      "min": 0,
+      "max": 30,
+      "initial": 15,
+      "epsilon": 1,
+      "heatEnergyFactor": 0.0005
+    },
     "width": 14,
     "height": 7
   },
@@ -42,6 +56,20 @@
       "max": 10,
       "epsilon": 0.2,
       "speedEnergyFactor": 0.005
+    },
+    "coldTolerance": {
+      "min": -30,
+      "max": 0,
+      "initial": -15,
+      "epsilon": 1,
+      "coldEnergyFactor": 0.0005
+    },
+    "heatTolerance": {
+      "min": 0,
+      "max": 30,
+      "initial": 15,
+      "epsilon": 1,
+      "heatEnergyFactor": 0.0005
     },
     "width": 14,
     "height": 7,

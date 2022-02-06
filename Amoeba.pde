@@ -1,6 +1,6 @@
 public class Amoeba extends Creature {
   float speed;
-  Amoeba(PVector pos, double speed) {
+  Amoeba(PVector pos, double speed, double maxTempTolerance, double minTempTolerance) {
     super(pos);
     this.speed = (float)speed;
     energy = config.amoeba.energy.get("initial");
@@ -9,6 +9,8 @@ public class Amoeba extends Creature {
       0,
       (speed - config.amoeba.speed.get("initial")) * config.amoeba.speed.get("speedEnergyFactor")
       );
+    this.maxTempTolerance = maxTempTolerance;
+    this.minTempTolerance = minTempTolerance;
   }
 
   void draw() {
@@ -62,7 +64,10 @@ public class Amoeba extends Creature {
 
   void live(ArrayList<Entity> entities) {
     if (!alive) return;
-    energy -= energyPerFrame;
+    float temp = (float)config.climate.current;
+    energy -= energyPerFrame +
+              temp > maxTempTolerance ? (temp - maxTempTolerance) * config.bacteria.heatTolerance.get("heatEnergyFactor") : 0 +
+              temp < minTempTolerance ? (minTempTolerance - temp) * config.bacteria.coldTolerance.get("coldEnergyFactor") : 0;
 
     if (energy < 0) {
       alive = false;
@@ -80,6 +85,22 @@ public class Amoeba extends Creature {
   Creature replicate() {
     energy -= config.amoeba.energy.get("lossAfterReplicate");
 
+    double heatToleranceEpsilon;
+    double minHeatTolerance;
+    double maxHeatTolerance;
+
+    double coldToleranceEpsilon;
+    double minColdTolerance;
+    double maxColdTolerance;
+
+    heatToleranceEpsilon = (double)config.amoeba.heatTolerance.get("epsilon");
+    minHeatTolerance = (double)config.amoeba.heatTolerance.get("min");
+    maxHeatTolerance = (double)config.amoeba.heatTolerance.get("max");
+
+    coldToleranceEpsilon = (double)config.amoeba.coldTolerance.get("epsilon");
+    minColdTolerance = (double)config.amoeba.coldTolerance.get("min");
+    maxColdTolerance = (double)config.amoeba.coldTolerance.get("max");
+
     double newSpeed = Math.max(
       Math.min(
       speed +
@@ -87,7 +108,25 @@ public class Amoeba extends Creature {
       config.amoeba.speed.get("max")),
       config.amoeba.speed.get("min")
       );
+    
+    double newMaxTempTolerance = Math.max(
+      Math.min(
+        maxTempTolerance +
+        randomGaussian() * heatToleranceEpsilon,
+        maxHeatTolerance
+      ),
+      minHeatTolerance
+    );
+    
+    double newMinTempTolerance = Math.max(
+      Math.min(
+        minTempTolerance +
+        randomGaussian() * coldToleranceEpsilon,
+        maxColdTolerance
+      ),
+      minColdTolerance
+    );
 
-    return new Amoeba(pos.copy(), newSpeed);
+    return new Amoeba(pos.copy(), newSpeed, newMaxTempTolerance, newMinTempTolerance);
   }
 }
