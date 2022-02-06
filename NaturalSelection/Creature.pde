@@ -10,11 +10,11 @@ abstract class Creature extends Entity {
     }
     
     abstract void live(ArrayList<Entity> entities);
-
+    
     protected boolean canReplicate() {
         return false;
     }
-
+    
     protected Creature replicate() {
         return null;
     }

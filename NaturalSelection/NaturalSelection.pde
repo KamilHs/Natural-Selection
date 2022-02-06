@@ -9,7 +9,9 @@ void setup() {
     fullScreen();
     noStroke();
     config = new Config("../config/1.json");
-    entities.add(new Flesh());
+    for (int i = 0; i < config.flesh.count; ++i) {
+        entities.add(new Flesh());
+    }
     entities.add(new Bacteria(new PVector(random(0, width),random(0, height)), config.bacteria.speed.get("max")));
     populations.add(0.0f);
     populationGraph = new Graph(displayWidth, 100, 0, displayHeight - 140, 1, GraphType.line, 255, 0, 0);
@@ -44,7 +46,7 @@ void draw() {
     if (frameCount % 5 == 0) {
         populations.add(creaturesCount);
     }
-    if(populations.size() > displayWidth){
+    if (populations.size() > displayWidth) {
         populations.remove(0);
     }
     entities.addAll(added);

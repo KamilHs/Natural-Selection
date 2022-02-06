@@ -51,8 +51,8 @@ class Graph {
         
         fill(r, g, b);
         for (int i = 0; i < data.length; ++i) {
-            float mapped = map((float)data[i], (float)min,(float) max, 0, h);
-            rect(x0 + i*tick, y0 + h, tick,(int) -mapped);
+            float mapped = map((float)data[i],(float)min,(float) max, 0, h);
+            rect(x0 + i * tick, y0 + h, tick,(int) - mapped);
         }
     } 
 }
