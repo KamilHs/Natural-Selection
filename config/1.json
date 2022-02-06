@@ -98,7 +98,7 @@
     }
   },
   "climate": {
-    "normal": 20,
+    "normalTemp": 20,
     "winter": {
       "bg": [230, 255, 255],
       "min": -60,

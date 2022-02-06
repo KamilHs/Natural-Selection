@@ -65,7 +65,7 @@ public class Amoeba extends Creature {
   void live(ArrayList<Entity> entities) {
     if (!alive) return;
     age++;
-    float temp = (float)config.climate.current;
+    float temp = (float)config.climate.currentTemp;
     energy -= energyPerFrame +
       Math.max((temp - maxTempTolerance) * config.amoeba.heatTolerance.get("heatEnergyFactor"), 0) +
       Math.max((minTempTolerance - temp) * config.amoeba.coldTolerance.get("coldEnergyFactor"), 0);

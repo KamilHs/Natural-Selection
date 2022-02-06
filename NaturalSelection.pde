@@ -26,8 +26,29 @@ void setup() {
 }
 
 void draw() {
+    if(config.climate.currentSeason == Season.summer)
+            background(config.climate.summer.bg[0],config.climate.summer.bg[1],config.climate.summer.bg[2]);
+    else if(config.climate.currentSeason == Season.winter)
+            background(config.climate.winter.bg[0],config.climate.winter.bg[1],config.climate.winter.bg[2]);
+else
     background(255);
-    
+
+    if(frameCount % 1800 == 0) {
+        if(config.climate.currentSeason == Season.spring){
+            config.climate.currentSeason = Season.summer;
+            config.climate.currentTemp = random((float)config.climate.summer.min,(float)config.climate.summer.max);
+        }else if(config.climate.currentSeason == Season.summer){
+            config.climate.currentSeason = Season.autumn;
+            config.climate.currentTemp = config.climate.normalTemp;
+        }else if(config.climate.currentSeason == Season.autumn){
+            config.climate.currentSeason = Season.winter;
+            config.climate.currentTemp = random((float)config.climate.winter.min,(float)config.climate.winter.max);
+        }else {
+            config.climate.currentSeason = Season.spring;
+            config.climate.currentTemp = config.climate.normalTemp;
+        }
+    }
+
     entities.removeIf(entity -> !entity.isAlive());
     
     if(frameCount % config.flesh.interval == 0) {
