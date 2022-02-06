@@ -9,7 +9,6 @@ public class Bacteria extends Creature {
             0,
            (speed - config.bacteria.speed.get("initial")) * config.bacteria.speed.get("speedEnergyFactor")
            );
-        // println(speed);
     }
     
     void draw() {
@@ -104,8 +103,7 @@ public class Bacteria extends Creature {
             minSpeed
         );
 
-        if (isAmoeba) return new Amoeba(pos.copy(), newSpeed);
-        return new Bacteria(pos.copy(), newSpeed);
+        return isAmoeba ? new Amoeba(pos.copy(), newSpeed):new Bacteria(pos.copy(), newSpeed);
     }
 
     void setEaten() {

@@ -9,7 +9,7 @@ public class Amoeba extends Creature {
             0,
            (speed - config.amoeba.speed.get("initial")) * config.amoeba.speed.get("speedEnergyFactor")
            );
-}
+    }
     
     void draw() {
         push();
@@ -21,46 +21,46 @@ public class Amoeba extends Creature {
             config.amoeba.height
            );
         pop();
-}
+    }
     
     boolean isAlive() {
         return alive;
-}
+    }
     
     void eat(double energy) {
         this.energy = Math.min(this.energy + energy, config.amoeba.energy.get("max"));
-}
+    }
     
     void hunt(ArrayList<Entity> entities) {
         double record = Double.MAX_VALUE;
         Bacteria closest = null;
         
         for (Entity entity : entities) {
-           if (!(entity instanceof Bacteria) || !entity.isAlive()) continue;
+            if (!(entity instanceof Bacteria) || !entity.isAlive()) continue;
             double distance = Utils.distanceTo(pos, entity.pos);
             
             if (record > distance) {
-                record= distance;
+                record = distance;
                 closest = (Bacteria)entity;
             }
-    }
+        }
         
-        if(closest != null) {
+        if (closest != null) {
             dir = PVector.sub(closest.pos, pos).normalize();
             
             if (Utils.distanceTo(pos, closest.pos) < speed) {
                 closest.setEaten();
                 eat(closest.energy);
             }
-    } else {
+        } else {
             dir = new PVector(0, 0);
+        }
     }
-}
     
     void live(ArrayList<Entity> entities) {
         if (!alive) return;
         energy -= energyPerFrame;
-        
+
         if (energy < 0) {
             alive = false;
         }
@@ -68,11 +68,11 @@ public class Amoeba extends Creature {
         hunt(entities);
         
         pos.add(dir.x * speed, dir.y * speed);
-}
+    }
     
     boolean canReplicate() {
-        return energy >= config.bacteria.energy.get("minForReplicate");
-}
+        return energy >= config.amoeba.energy.get("minForReplicate");
+    }
     
     Creature replicate() {
         energy -= config.amoeba.energy.get("lossAfterReplicate");
@@ -86,5 +86,5 @@ public class Amoeba extends Creature {
            );
         
         return new Amoeba(pos.copy(), newSpeed);
-}
+    }
 }

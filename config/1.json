@@ -3,7 +3,7 @@
   "creaturesCount": 1,
   "flesh": {
     "interval": 25,
-    "count": 400,
+    "count": 1000,
     "energy": 0.2,
     "radius": 5,
     "color": [0, 0, 255]
@@ -22,7 +22,7 @@
       "initial": 4,
       "max": 12,
       "epsilon": 0.2,
-      "speedEnergyFactor": 0.0075
+      "speedEnergyFactor": 0.005
     },
     "width": 14,
     "height": 7
@@ -45,7 +45,7 @@
     },
     "width": 14,
     "height": 7,
-    "probOfAmoeba": 0.001
+    "probOfAmoeba": 0.01
   },
   "charts": {
     "population": {

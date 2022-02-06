@@ -2,8 +2,10 @@ import java.util.Arrays;
 
 Config config;
 ArrayList<Entity> entities = new ArrayList<Entity>();
-ArrayList<Float> populations = new ArrayList<Float>();
-Graph populationGraph;
+ArrayList<Float> bacteriaPopulations = new ArrayList<Float>();
+ArrayList<Float> amoebaPopulations = new ArrayList<Float>();
+Graph bacteriaPopulationGraph;
+Graph amoebaPopulationGraph;
 
 void setup() {
     fullScreen();
@@ -12,9 +14,10 @@ void setup() {
     for (int i = 0; i < config.flesh.count; ++i) {
         entities.add(new Flesh());
     }
-    entities.add(new Bacteria(new PVector(random(0, width),random(0, height)), config.bacteria.speed.get("max")));
-    populations.add(0.0f);
-    populationGraph = new Graph(displayWidth, 100, 0, displayHeight - 140, 1, GraphType.line, 255, 0, 0);
+    entities.add(new Bacteria(new PVector(random(0, width),random(0, height)), config.bacteria.speed.get("initial")));
+    bacteriaPopulations.add(0.0f);
+    bacteriaPopulationGraph = new Graph(displayWidth, 100, 0, displayHeight - 140, 1, GraphType.line, 255, 0, 0);
+    amoebaPopulationGraph = new Graph(displayWidth, 100, 0, displayHeight - 240, 1, GraphType.line, 255, 0, 255);
 }
 
 void draw() {
@@ -30,25 +33,36 @@ void draw() {
     
     ArrayList<Creature> added = new ArrayList<Creature>();
     
-    float creaturesCount = 0;
+    float bacteriaCount = 0;
+    float amoebaCount = 0;
     for (Entity entity : entities) {
         entity.draw();
         if (!(entity instanceof Creature)) continue;
         
         Creature creature = (Creature) entity;
         creature.live(entities);
-        creaturesCount++;
+        
+        if (creature instanceof Bacteria)
+            bacteriaCount++;
+        if (creature instanceof Amoeba)
+            amoebaCount++;
         if (creature.canReplicate()) {
             added.add(creature.replicate());
         }
     }
     
     if (frameCount % 5 == 0) {
-        populations.add(creaturesCount);
+        bacteriaPopulations.add(bacteriaCount);
+        amoebaPopulations.add(amoebaCount);
+        println(amoebaCount);
     }
-    if (populations.size() > displayWidth) {
-        populations.remove(0);
+    if (bacteriaPopulations.size() > displayWidth) {
+        bacteriaPopulations.remove(0);
+    }
+    if (amoebaPopulations.size() > displayWidth) {
+        amoebaPopulations.remove(0);
     }
     entities.addAll(added);
-    populationGraph.draw(populations.toArray(new Float[0]));
+    bacteriaPopulationGraph.draw(bacteriaPopulations.toArray(new Float[0]));
+    amoebaPopulationGraph.draw(amoebaPopulations.toArray(new Float[0]));
 }
