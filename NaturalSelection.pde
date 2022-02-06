@@ -16,7 +16,7 @@ void setup() {
   for (int i = 0; i < config.flesh.count; ++i) {
     entities.add(new Flesh());
   }
-  entities.add(new Bacteria(new PVector(random(0, width), random(0, height)), config.bacteria.speed.get("initial")));
+  entities.add(new Bacteria(new PVector(random(0, width), random(0, height)), config.bacteria.speed.get("initial"), config.bacteria.heatTolerance.get("initial"), config.bacteria.coldTolerance.get("initial")));
   bacteriaPopulations.add(0.0f);
   amoebaPopulations.add(0.0f);
   bacteriaPopulationGraph = new LineGraph(displayWidth/2, 100, 0, displayHeight - 140, 1, 255, 0, 0);
