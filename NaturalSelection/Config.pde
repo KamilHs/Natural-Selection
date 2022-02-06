@@ -60,7 +60,6 @@ class AmoebaConfig {
     int[] c;
     int width;
     int height;
-    double probOfAmoeba;
     HashMap<String, Double> energy = new HashMap<String, Double>();
     HashMap<String, Double> speed = new HashMap<String, Double>();
     

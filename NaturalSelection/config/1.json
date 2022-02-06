@@ -22,7 +22,7 @@
       "initial": 4,
       "max": 12,
       "epsilon": 0.2,
-      "speedEnergyFactor": 0.0025
+      "speedEnergyFactor": 0.0075
     },
     "width": 14,
     "height": 7
