@@ -14,8 +14,8 @@
       "energy": {
         "max": 2,
         "initial": 1.1,
-        "minForReplicate": 2.3,
-        "lossAfterReplicate": 1.5,
+        "minForReplicate": 2,
+        "lossAfterReplicate": 1.1,
         "lossPerFrame": 0.015
       },
       "speed": {
@@ -48,8 +48,8 @@
       "energy": {
         "max": 1,
         "initial": 0.7,
-        "minForReplicate": 1.2,
-        "lossAfterReplicate": 0.8,
+        "minForReplicate": 1,
+        "lossAfterReplicate": 0.6,
         "lossPerFrame": 0.005
       },
       "speed": {
