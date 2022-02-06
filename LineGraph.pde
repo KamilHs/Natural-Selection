@@ -8,7 +8,9 @@ public class LineGraph extends Graph {
     void draw(Float[] data) {
         push();
         fill(255);
+        stroke(0);
         rect(x0, y0, w, h);
+        noStroke();
         
         float min = Float.MAX_VALUE;
         float max = Float.MIN_VALUE;

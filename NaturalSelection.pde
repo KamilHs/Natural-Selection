@@ -6,6 +6,8 @@ ArrayList<Float> bacteriaPopulations = new ArrayList<Float>();
 ArrayList<Float> amoebaPopulations = new ArrayList<Float>();
 LineGraph bacteriaPopulationGraph;
 LineGraph amoebaPopulationGraph;
+HistogramGraph bacteriaSpeedGraph;
+HistogramGraph amoebaSpeedGraph;
 
 void setup() {
   fullScreen();
@@ -16,8 +18,11 @@ void setup() {
   }
   entities.add(new Bacteria(new PVector(random(0, width), random(0, height)), config.bacteria.speed.get("initial")));
   bacteriaPopulations.add(0.0f);
-  bacteriaPopulationGraph = new LineGraph(displayWidth, 100, 0, displayHeight - 140, 1, 255, 0, 0);
-  amoebaPopulationGraph = new LineGraph(displayWidth, 100, 0, displayHeight - 240, 1, 255, 0, 255);
+  amoebaPopulations.add(0.0f);
+  bacteriaPopulationGraph = new LineGraph(displayWidth/2, 100, 0, displayHeight - 140, 1, 255, 0, 0);
+  amoebaPopulationGraph = new LineGraph(displayWidth/2, 100, 0, displayHeight - 240, 1, 255, 0, 255);
+  bacteriaSpeedGraph = new HistogramGraph(100, 100, displayWidth/2, displayHeight - 140, config.bacteria.speed.get("min").floatValue(), config.bacteria.speed.get("max").floatValue(), 255, 0, 0);
+  amoebaSpeedGraph = new HistogramGraph(100, 100, displayWidth/2, displayHeight - 240, config.amoeba.speed.get("min").floatValue(), config.amoeba.speed.get("max").floatValue(), 255, 0, 255);
 }
 
 void draw() {
@@ -32,6 +37,8 @@ void draw() {
   }
 
   ArrayList<Creature> added = new ArrayList<Creature>();
+  ArrayList<Float> bacteriaSpeeds = new ArrayList<Float>();
+  ArrayList<Float> amoebaSpeeds = new ArrayList<Float>();
 
   float bacteriaCount = 0;
   float amoebaCount = 0;
@@ -42,10 +49,16 @@ void draw() {
     Creature creature = (Creature) entity;
     creature.live(entities);
 
-    if (creature instanceof Bacteria)
+    if (creature instanceof Bacteria) {
+      Bacteria b = (Bacteria)creature;
+      bacteriaSpeeds.add(b.speed);
       bacteriaCount++;
-    if (creature instanceof Amoeba)
+    }
+    if (creature instanceof Amoeba){
+      Amoeba a = (Amoeba)creature;
+      amoebaSpeeds.add(a.speed);
       amoebaCount++;
+    }
     if (creature.canReplicate()) {
       added.add(creature.replicate());
     }
@@ -54,15 +67,16 @@ void draw() {
   if (frameCount % 5 == 0) {
     bacteriaPopulations.add(bacteriaCount);
     amoebaPopulations.add(amoebaCount);
-    println(amoebaCount);
   }
-  if (bacteriaPopulations.size() > displayWidth) {
+  if (bacteriaPopulations.size() > displayWidth/2) {
     bacteriaPopulations.remove(0);
   }
-  if (amoebaPopulations.size() > displayWidth) {
+  if (amoebaPopulations.size() > displayWidth/2) {
     amoebaPopulations.remove(0);
   }
   entities.addAll(added);
   bacteriaPopulationGraph.draw(bacteriaPopulations.toArray(new Float[0]));
   amoebaPopulationGraph.draw(amoebaPopulations.toArray(new Float[0]));
+  bacteriaSpeedGraph.draw(bacteriaSpeeds.toArray(new Float[0]));
+  amoebaSpeedGraph.draw(amoebaSpeeds.toArray(new Float[0]));
 }
