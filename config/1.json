@@ -9,6 +9,7 @@
     "color": [0, 0, 255]
   },
   "amoeba": {
+    "maxAge": 3600,
     "color": [100, 0, 100],
     "energy": {
       "max": 2,
@@ -42,6 +43,7 @@
     "height": 7
   },
   "bacteria": {
+    "maxAge": 3600,
     "color": [255, 0, 0],
     "energy": {
       "max": 1,

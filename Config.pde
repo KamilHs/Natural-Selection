@@ -24,6 +24,7 @@ class BacteriaConfig {
   int[] c;
   int width;
   int height;
+  int maxAge;
   double probOfAmoeba;
   HashMap<String, Double> energy = new HashMap<String, Double>();
   HashMap<String, Double> speed = new HashMap<String, Double>();
@@ -33,6 +34,7 @@ class BacteriaConfig {
   BacteriaConfig(JSONObject config) {
     width = config.getInt("width");
     height = config.getInt("height");
+    maxAge = config.getInt("maxAge");
     probOfAmoeba = config.getDouble("probOfAmoeba");
     JSONObject energyJson = config.getJSONObject("energy");
     JSONObject speedJson = config.getJSONObject("speed");
@@ -76,6 +78,7 @@ class AmoebaConfig {
   int[] c;
   int width;
   int height;
+  int maxAge;
   HashMap<String, Double> energy = new HashMap<String, Double>();
   HashMap<String, Double> speed = new HashMap<String, Double>();
   HashMap<String, Double> coldTolerance = new HashMap<String, Double>();
@@ -84,6 +87,7 @@ class AmoebaConfig {
   AmoebaConfig(JSONObject config) {
     width = config.getInt("width");
     height = config.getInt("height");
+    maxAge = config.getInt("maxAge");
     JSONObject energyJson = config.getJSONObject("energy");
     JSONObject speedJson = config.getJSONObject("speed");
     JSONObject coldToleranceJson = config.getJSONObject("coldTolerance");

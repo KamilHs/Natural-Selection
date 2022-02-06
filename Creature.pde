@@ -5,6 +5,7 @@ abstract class Creature extends Entity {
     protected boolean alive = true;
     protected double maxTempTolerance;
     protected double minTempTolerance;
+    protected int age = 0;
     
     Creature(PVector pos) {
         super(pos);

@@ -64,12 +64,13 @@ public class Bacteria extends Creature {
 
   void live(ArrayList<Entity> entities) {
     if (!alive) return;
+    age++;
     float temp = (float)config.climate.current;
     energy -= energyPerFrame +
               Math.max((temp - maxTempTolerance) * config.bacteria.heatTolerance.get("heatEnergyFactor"),0)+
               Math.max((minTempTolerance - temp) * config.bacteria.coldTolerance.get("coldEnergyFactor"),0);
 
-    if (energy < 0) {
+    if (energy < 0 || age > config.bacteria.maxAge) {
       alive = false;
     }
 
