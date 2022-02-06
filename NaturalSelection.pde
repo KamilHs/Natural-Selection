@@ -10,9 +10,10 @@ HistogramGraph bacteriaSpeedGraph;
 HistogramGraph amoebaSpeedGraph;
 
 void setup() {
-    fullScreen();
+    // fullScreen();
+    size(1080,720);
     noStroke();
-    config = new Config("../config/1.json");
+    config = new Config("../config/1080p_720p.json");
     for (int i = 0; i < config.flesh.count; ++i) {
         entities.add(new Flesh());
 }
