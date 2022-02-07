@@ -139,12 +139,14 @@ enum Season {
 class ClimateConfig {
   double normalTemp;
   double currentTemp;
+  int climateDuration;
   Season currentSeason = Season.spring; 
   SeasonConfig winter;
   SeasonConfig summer;
 
   ClimateConfig(JSONObject config) {
     normalTemp = config.getDouble("normalTemp");
+    climateDuration = config.getInt("climateDuration");
     currentTemp = normalTemp;
     winter = new SeasonConfig(config.getJSONObject("winter"));
     summer = new SeasonConfig(config.getJSONObject("summer"));

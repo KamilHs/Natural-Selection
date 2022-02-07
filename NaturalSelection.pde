@@ -33,7 +33,7 @@ void draw() {
     else
         background(255);
 
-    if(frameCount % 1800 == 0) {
+    if(frameCount % config.climate.climateDuration == 0) {
         if(config.climate.currentSeason == Season.spring){
             config.climate.currentSeason = Season.summer;
             config.climate.currentTemp = random((float)config.climate.summer.min,(float)config.climate.summer.max);
@@ -55,7 +55,7 @@ void draw() {
         for (int i = 0; i < config.flesh.count; ++i) {
             entities.add(new Flesh());
         }
-}
+    }
     
     ArrayList<Creature> added = new ArrayList<Creature>();
     ArrayList<Float> bacteriaSpeeds = new ArrayList<Float>();
@@ -63,6 +63,7 @@ void draw() {
     
     float bacteriaCount = 0;
     float amoebaCount = 0;
+
     for (Entity entity : entities) {
         entity.draw();
         if (!(entity instanceof Creature)) continue;
@@ -83,19 +84,23 @@ void draw() {
         if (creature.canReplicate()) {
             added.add(creature.replicate());
         }
-}
+    }
     
     if(frameCount % 5 == 0) {
         bacteriaPopulations.add(bacteriaCount);
         amoebaPopulations.add(amoebaCount);
-}
+    }
+
     if(bacteriaPopulations.size() > displayWidth / 2) {
         bacteriaPopulations.remove(0);
-}
+    }
+    
     if(amoebaPopulations.size() > displayWidth / 2) {
         amoebaPopulations.remove(0);
-}
+    }
+
     entities.addAll(added);
+
     bacteriaPopulationGraph.draw(bacteriaPopulations.toArray(new Float[0]));
     amoebaPopulationGraph.draw(amoebaPopulations.toArray(new Float[0]));
     bacteriaSpeedGraph.draw(bacteriaSpeeds.toArray(new Float[0]));

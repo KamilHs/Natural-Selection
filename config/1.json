@@ -99,6 +99,7 @@
   },
   "climate": {
     "normalTemp": 20,
+    "climateDuration": 1800,
     "winter": {
       "bg": [230, 255, 255],
       "min": -60,
