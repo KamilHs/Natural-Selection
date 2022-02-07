@@ -25,19 +25,13 @@
       "epsilon": 0.2,
       "speedEnergyFactor": 0.005
     },
-    "coldTolerance": {
-      "min": -60,
-      "max": 0,
-      "initial": -20,
-      "epsilon": 2,
-      "coldEnergyFactor": 0.0005
-    },
-    "heatTolerance": {
-      "min": 0,
+    "temp": {
       "max": 60,
+      "min": -60,
       "initial": 20,
-      "epsilon": 2,
-      "heatEnergyFactor": 0.0005
+      "range": 15,
+      "epsilon": 1,
+      "tempEnergyFactor": 0.0002
     },
     "width": 14,
     "height": 7
@@ -59,19 +53,13 @@
       "epsilon": 0.2,
       "speedEnergyFactor": 0.005
     },
-    "coldTolerance": {
-      "min": -60,
-      "max": 0,
-      "initial": -20,
-      "epsilon": 2,
-      "coldEnergyFactor": 0.0005
-    },
-    "heatTolerance": {
-      "min": 0,
+    "temp": {
       "max": 60,
-      "initial": 20,
-      "epsilon": 2,
-      "heatEnergyFactor": 0.0005
+      "min": -60,
+      "initial": 15,
+      "range": 20,
+      "epsilon": 1,
+      "tempEnergyFactor": 0.0002
     },
     "width": 14,
     "height": 7,
