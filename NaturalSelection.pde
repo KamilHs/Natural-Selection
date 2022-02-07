@@ -12,10 +12,10 @@ HistogramGraph amoebaSpeedGraph;
 void setup() {
     fullScreen();
     noStroke();
-    config = new Config("../config/1.json");
+    config = new Config("1.json");
     for (int i = 0; i < config.flesh.count; ++i) {
         entities.add(new Flesh());
-}
+    }
     entities.add(new Bacteria(new PVector(random(0, width), random(0, height)), config.bacteria.speed.get("initial"), config.bacteria.heatTolerance.get("initial"), config.bacteria.coldTolerance.get("initial")));
     bacteriaPopulations.add(0.0f);
     amoebaPopulations.add(0.0f);
@@ -34,19 +34,7 @@ void draw() {
         background(255);
 
     if(frameCount % config.climate.climateDuration == 0) {
-        if(config.climate.currentSeason == Season.spring){
-            config.climate.currentSeason = Season.summer;
-            config.climate.currentTemp = random((float)config.climate.summer.min,(float)config.climate.summer.max);
-        }else if(config.climate.currentSeason == Season.summer){
-            config.climate.currentSeason = Season.autumn;
-            config.climate.currentTemp = config.climate.normalTemp;
-        }else if(config.climate.currentSeason == Season.autumn){
-            config.climate.currentSeason = Season.winter;
-            config.climate.currentTemp = random((float)config.climate.winter.min,(float)config.climate.winter.max);
-        }else {
-            config.climate.currentSeason = Season.spring;
-            config.climate.currentTemp = config.climate.normalTemp;
-        }
+        Climate.climateChange(config);
     }
 
     entities.removeIf(entity -> !entity.isAlive());
