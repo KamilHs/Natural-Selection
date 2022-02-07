@@ -1,0 +1,151 @@
+{
+    "bg": [230],
+    "creaturesCount": 1,
+    "flesh": {
+      "interval": 25,
+      "count": 1000,
+      "energy": 0.2,
+      "radius": 5,
+      "color": [0, 0, 255]
+    },
+    "amoeba": {
+      "maxAge": 3600,
+      "color": [100, 0, 100],
+      "energy": {
+        "max": 2,
+        "initial": 1.1,
+        "minForReplicate": 1.8,
+        "lossAfterReplicate": 1,
+        "lossPerFrame": 0.015
+      },
+      "speed": {
+        "min": 2,
+        "initial": 4,
+        "max": 8,
+        "epsilon": 0.2,
+        "speedEnergyFactor": 0.005
+      },
+      "coldTolerance": {
+        "min": -60,
+        "max": 0,
+        "initial": -20,
+        "epsilon": 2,
+        "coldEnergyFactor": 0.0005
+      },
+      "heatTolerance": {
+        "min": 0,
+        "max": 60,
+        "initial": 20,
+        "epsilon": 2,
+        "heatEnergyFactor": 0.0005
+      },
+      "width": 14,
+      "height": 7
+    },
+    "bacteria": {
+      "maxAge": 3600,
+      "color": [255, 0, 0],
+      "energy": {
+        "max": 1,
+        "initial": 0.7,
+        "minForReplicate": 0.9,
+        "lossAfterReplicate": 0.5,
+        "lossPerFrame": 0.005
+      },
+      "speed": {
+        "min": 1,
+        "initial": 3,
+        "max": 6,
+        "epsilon": 0.2,
+        "speedEnergyFactor": 0.005
+      },
+      "coldTolerance": {
+        "min": -60,
+        "max": 0,
+        "initial": -20,
+        "epsilon": 2,
+        "coldEnergyFactor": 0.0005
+      },
+      "heatTolerance": {
+        "min": 0,
+        "max": 60,
+        "initial": 20,
+        "epsilon": 2,
+        "heatEnergyFactor": 0.0005
+      },
+      "width": 14,
+      "height": 7,
+      "probOfAmoeba": 0.01
+    },
+    "charts": {
+      "population": {
+        "show": true,
+        "width": null,
+        "height": 100,
+        "maxValue": 0,
+        "frameStep": 5,
+        "tick": 1,
+        "bg": [255, 255, 255],
+        "itemColor": [255, 0, 0]
+      },
+      "speed": {
+        "show": true,
+        "width": 100,
+        "height": 100,
+        "tick": 4,
+        "bg": [255, 255, 255],
+        "itemColor": [0, 255, 0]
+      }
+    },
+    "climate": {
+      "normalTemp": 20,
+      "climateDuration": 1800,
+      "winter": {
+        "bg": [230, 255, 255],
+        "min": -60,
+        "max": 0
+      },
+      "summer": {
+        "bg": [255, 240, 179],
+        "min": 30,
+        "max": 60
+      }
+    },
+    "bacteriaPopulationGraph": {
+      "width": 2,
+      "height": 100,
+      "x0": 0,
+      "y0": 140,
+      "tick": 1,
+      "color": [255,0,0],
+      "label": "Bacteria population"
+    },
+    "amoebaPopulationGraph": {
+      "width": 2,
+      "height": 100,
+      "x0": 0,
+      "y0": 240,
+      "tick": 1,
+      "color": [255,0,255],
+      "label": "Amoeba population"
+    },
+    "bacteriaSpeedGraph": {
+      "width": 100,
+      "height": 100,
+      "x0": 2,
+      "y0": 140,
+      "tick": 1,
+      "color": [255,0,0],
+      "label": "Bacteria speed"
+    },
+    "amoebaSpeedGraph": {
+      "width": 100,
+      "height": 100,
+      "x0": 2,
+      "y0": 240,
+      "tick": 1,
+      "color": [255,0,255],
+      "label": "Amoeba speed"
+    }
+  }
+  
