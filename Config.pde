@@ -63,7 +63,6 @@ class BacteriaConfig {
 
     JSONArray cJson = config.getJSONArray("color");
     c = Utils.extractColor(cJson);
-
   }
 }
 
@@ -130,7 +129,7 @@ class SeasonConfig {
 }
 
 enum Season {
-    winter,
+  winter,
     spring,
     summer,
     autumn
@@ -140,7 +139,7 @@ class ClimateConfig {
   double normalTemp;
   double currentTemp;
   int climateDuration;
-  Season currentSeason = Season.spring; 
+  Season currentSeason = Season.spring;
   SeasonConfig winter;
   SeasonConfig summer;
 

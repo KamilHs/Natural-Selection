@@ -67,8 +67,8 @@ public class Bacteria extends Creature {
     age++;
     float temp = (float)config.climate.currentTemp;
     energy -= energyPerFrame +
-              Math.max((temp - maxTempTolerance) * config.bacteria.heatTolerance.get("heatEnergyFactor"),0)+
-              Math.max((minTempTolerance - temp) * config.bacteria.coldTolerance.get("coldEnergyFactor"),0);
+      Math.max((temp - maxTempTolerance) * config.bacteria.heatTolerance.get("heatEnergyFactor"), 0)+
+      Math.max((minTempTolerance - temp) * config.bacteria.coldTolerance.get("coldEnergyFactor"), 0);
 
     if (energy < 0 || age > config.bacteria.maxAge) {
       alive = false;
@@ -126,7 +126,7 @@ public class Bacteria extends Creature {
       minColdTolerance = (double)config.bacteria.coldTolerance.get("min");
       maxColdTolerance = (double)config.bacteria.coldTolerance.get("max");
     }
-  
+
     double newSpeed = Math.max(
       Math.min(
       speed +
@@ -135,24 +135,24 @@ public class Bacteria extends Creature {
       ),
       minSpeed
       );
-    
+
     double newMaxTempTolerance = Math.max(
       Math.min(
-        maxTempTolerance +
-        randomGaussian() * heatToleranceEpsilon,
-        maxHeatTolerance
+      maxTempTolerance +
+      randomGaussian() * heatToleranceEpsilon,
+      maxHeatTolerance
       ),
       minHeatTolerance
-    );
-    
+      );
+
     double newMinTempTolerance = Math.max(
       Math.min(
-        minTempTolerance +
-        randomGaussian() * coldToleranceEpsilon,
-        maxColdTolerance
+      minTempTolerance +
+      randomGaussian() * coldToleranceEpsilon,
+      maxColdTolerance
       ),
       minColdTolerance
-    );
+      );
 
     return isAmoeba ? new Amoeba(pos.copy(), newSpeed, newMaxTempTolerance, newMinTempTolerance):new Bacteria(pos.copy(), newSpeed, newMaxTempTolerance, newMinTempTolerance);
   }
