@@ -24,8 +24,7 @@ class BacteriaConfig {
   double probOfAmoeba;
   HashMap<String, Double> energy = new HashMap<String, Double>();
   HashMap<String, Double> speed = new HashMap<String, Double>();
-  HashMap<String, Double> coldTolerance = new HashMap<String, Double>();
-  HashMap<String, Double> heatTolerance = new HashMap<String, Double>();
+  HashMap<String, Double> temp = new HashMap<String, Double>();
 
   BacteriaConfig(JSONObject config) {
     width = config.getInt("width");
@@ -34,8 +33,7 @@ class BacteriaConfig {
     probOfAmoeba = config.getDouble("probOfAmoeba");
     JSONObject energyJson = config.getJSONObject("energy");
     JSONObject speedJson = config.getJSONObject("speed");
-    JSONObject coldToleranceJson = config.getJSONObject("coldTolerance");
-    JSONObject heatToleranceJson = config.getJSONObject("heatTolerance");
+    JSONObject tempJson = config.getJSONObject("temp");
 
     energy.put("max", energyJson.getDouble("max"));
     energy.put("initial", energyJson.getDouble("initial"));
@@ -49,17 +47,12 @@ class BacteriaConfig {
     speed.put("epsilon", speedJson.getDouble("epsilon"));
     speed.put("speedEnergyFactor", speedJson.getDouble("speedEnergyFactor"));
 
-    coldTolerance.put("min", coldToleranceJson.getDouble("min"));
-    coldTolerance.put("max", coldToleranceJson.getDouble("max"));
-    coldTolerance.put("initial", coldToleranceJson.getDouble("initial"));
-    coldTolerance.put("epsilon", coldToleranceJson.getDouble("epsilon"));
-    coldTolerance.put("coldEnergyFactor", coldToleranceJson.getDouble("coldEnergyFactor"));
-
-    heatTolerance.put("min", heatToleranceJson.getDouble("min"));
-    heatTolerance.put("max", heatToleranceJson.getDouble("max"));
-    heatTolerance.put("initial", heatToleranceJson.getDouble("initial"));
-    heatTolerance.put("epsilon", heatToleranceJson.getDouble("epsilon"));
-    heatTolerance.put("heatEnergyFactor", heatToleranceJson.getDouble("heatEnergyFactor"));
+    temp.put("max", tempJson.getDouble("max"));
+    temp.put("min", tempJson.getDouble("min"));
+    temp.put("initial", tempJson.getDouble("initial"));
+    temp.put("range", tempJson.getDouble("range"));
+    temp.put("epsilon", tempJson.getDouble("epsilon"));
+    temp.put("tempEnergyFactor", tempJson.getDouble("tempEnergyFactor"));
 
     JSONArray cJson = config.getJSONArray("color");
     c = Utils.extractColor(cJson);
@@ -73,8 +66,7 @@ class AmoebaConfig {
   int maxAge;
   HashMap<String, Double> energy = new HashMap<String, Double>();
   HashMap<String, Double> speed = new HashMap<String, Double>();
-  HashMap<String, Double> coldTolerance = new HashMap<String, Double>();
-  HashMap<String, Double> heatTolerance = new HashMap<String, Double>();
+  HashMap<String, Double> temp = new HashMap<String, Double>();
 
   AmoebaConfig(JSONObject config) {
     width = config.getInt("width");
@@ -82,8 +74,7 @@ class AmoebaConfig {
     maxAge = config.getInt("maxAge");
     JSONObject energyJson = config.getJSONObject("energy");
     JSONObject speedJson = config.getJSONObject("speed");
-    JSONObject coldToleranceJson = config.getJSONObject("coldTolerance");
-    JSONObject heatToleranceJson = config.getJSONObject("heatTolerance");
+    JSONObject tempJson = config.getJSONObject("temp");
 
     energy.put("max", energyJson.getDouble("max"));
     energy.put("initial", energyJson.getDouble("initial"));
@@ -97,17 +88,12 @@ class AmoebaConfig {
     speed.put("epsilon", speedJson.getDouble("epsilon"));
     speed.put("speedEnergyFactor", speedJson.getDouble("speedEnergyFactor"));
 
-    coldTolerance.put("min", coldToleranceJson.getDouble("min"));
-    coldTolerance.put("max", coldToleranceJson.getDouble("max"));
-    coldTolerance.put("initial", coldToleranceJson.getDouble("initial"));
-    coldTolerance.put("epsilon", coldToleranceJson.getDouble("epsilon"));
-    coldTolerance.put("coldEnergyFactor", coldToleranceJson.getDouble("coldEnergyFactor"));
-
-    heatTolerance.put("min", heatToleranceJson.getDouble("min"));
-    heatTolerance.put("max", heatToleranceJson.getDouble("max"));
-    heatTolerance.put("initial", heatToleranceJson.getDouble("initial"));
-    heatTolerance.put("epsilon", heatToleranceJson.getDouble("epsilon"));
-    heatTolerance.put("heatEnergyFactor", heatToleranceJson.getDouble("heatEnergyFactor"));
+    temp.put("max", tempJson.getDouble("max"));
+    temp.put("min", tempJson.getDouble("min"));
+    temp.put("initial", tempJson.getDouble("initial"));
+    temp.put("range", tempJson.getDouble("range"));
+    temp.put("epsilon", tempJson.getDouble("epsilon"));
+    temp.put("tempEnergyFactor", tempJson.getDouble("tempEnergyFactor"));
 
     JSONArray cJson = config.getJSONArray("color");
     c = Utils.extractColor(cJson);
