@@ -1,6 +1,6 @@
 public class Bacteria extends Creature {
   float speed;
-  Bacteria(PVector pos, double speed, double maxTempTolerance, double minTempTolerance) {
+  Bacteria(PVector pos, double speed, double normalTemp) {
     super(pos);
     this.speed = (float)speed;
     energy = config.bacteria.energy.get("initial");
@@ -9,8 +9,7 @@ public class Bacteria extends Creature {
       0,
       (speed - config.bacteria.speed.get("initial")) * config.bacteria.speed.get("speedEnergyFactor")
       );
-    this.maxTempTolerance = maxTempTolerance;
-    this.minTempTolerance = minTempTolerance;
+    this.normalTemp = normalTemp;
   }
 
   void draw() {
@@ -67,8 +66,8 @@ public class Bacteria extends Creature {
     age++;
     float temp = (float)config.climate.currentTemp;
     energy -= energyPerFrame +
-      Math.max((temp - maxTempTolerance) * config.bacteria.heatTolerance.get("heatEnergyFactor"), 0)+
-      Math.max((minTempTolerance - temp) * config.bacteria.coldTolerance.get("coldEnergyFactor"), 0);
+              Math.max((temp - (normalTemp + config.bacteria.temp.get("range"))) * config.bacteria.temp.get("tempEnergyFactor"),0)+
+              Math.max(((normalTemp - config.bacteria.temp.get("range")) - temp) * config.bacteria.temp.get("tempEnergyFactor"),0);
 
     if (energy < 0 || age > config.bacteria.maxAge) {
       alive = false;
@@ -92,13 +91,9 @@ public class Bacteria extends Creature {
     double maxSpeed;
     double minSpeed;
 
-    double heatToleranceEpsilon;
-    double minHeatTolerance;
-    double maxHeatTolerance;
-
-    double coldToleranceEpsilon;
-    double minColdTolerance;
-    double maxColdTolerance;
+    double tempEpsilon;
+    double maxNormalTemp;
+    double minNormalTemp;
 
     if (Math.random() < (float)config.bacteria.probOfAmoeba) {
       isAmoeba = true;
@@ -106,25 +101,17 @@ public class Bacteria extends Creature {
       maxSpeed = (double)config.amoeba.speed.get("max");
       minSpeed = (double)config.amoeba.speed.get("min");
 
-      heatToleranceEpsilon = (double)config.amoeba.heatTolerance.get("epsilon");
-      minHeatTolerance = (double)config.amoeba.heatTolerance.get("min");
-      maxHeatTolerance = (double)config.amoeba.heatTolerance.get("max");
-
-      coldToleranceEpsilon = (double)config.amoeba.coldTolerance.get("epsilon");
-      minColdTolerance = (double)config.amoeba.coldTolerance.get("min");
-      maxColdTolerance = (double)config.amoeba.coldTolerance.get("max");
+      tempEpsilon = (double)config.amoeba.temp.get("epsilon");
+      maxNormalTemp = (double)config.amoeba.temp.get("max");
+      minNormalTemp = (double)config.amoeba.temp.get("min");
     } else {
       speedEpsilon = (double)config.bacteria.speed.get("epsilon");
       maxSpeed = (double)config.bacteria.speed.get("max");
       minSpeed = (double)config.bacteria.speed.get("min");
 
-      heatToleranceEpsilon = (double)config.bacteria.heatTolerance.get("epsilon");
-      minHeatTolerance = (double)config.bacteria.heatTolerance.get("min");
-      maxHeatTolerance = (double)config.bacteria.heatTolerance.get("max");
-
-      coldToleranceEpsilon = (double)config.bacteria.coldTolerance.get("epsilon");
-      minColdTolerance = (double)config.bacteria.coldTolerance.get("min");
-      maxColdTolerance = (double)config.bacteria.coldTolerance.get("max");
+      tempEpsilon = (double)config.bacteria.temp.get("epsilon");
+      maxNormalTemp = (double)config.bacteria.temp.get("max");
+      minNormalTemp = (double)config.bacteria.temp.get("min");
     }
 
     double newSpeed = Math.max(
@@ -136,25 +123,16 @@ public class Bacteria extends Creature {
       minSpeed
       );
 
-    double newMaxTempTolerance = Math.max(
+    double newNormalTemp = Math.max(
       Math.min(
-      maxTempTolerance +
-      randomGaussian() * heatToleranceEpsilon,
-      maxHeatTolerance
+        normalTemp +
+        randomGaussian() * tempEpsilon,
+        maxNormalTemp
       ),
-      minHeatTolerance
-      );
+      minNormalTemp
+    );
 
-    double newMinTempTolerance = Math.max(
-      Math.min(
-      minTempTolerance +
-      randomGaussian() * coldToleranceEpsilon,
-      maxColdTolerance
-      ),
-      minColdTolerance
-      );
-
-    return isAmoeba ? new Amoeba(pos.copy(), newSpeed, newMaxTempTolerance, newMinTempTolerance):new Bacteria(pos.copy(), newSpeed, newMaxTempTolerance, newMinTempTolerance);
+    return isAmoeba ? new Amoeba(pos.copy(), newSpeed, newNormalTemp) : new Bacteria(pos.copy(), newSpeed, newNormalTemp);
   }
 
   void setEaten() {
