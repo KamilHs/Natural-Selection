@@ -12,7 +12,7 @@ HistogramGraph amoebaSpeedGraph;
 void setup() {
     fullScreen();
     noStroke();
-    config = new Config("1.json");
+    config = new Config("../config/1.json");
     for (int i = 0; i < config.flesh.count; ++i) {
         entities.add(new Flesh());
     }
