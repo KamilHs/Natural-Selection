@@ -4,7 +4,7 @@ public class HistogramGraph extends Graph {
   float max;
   HistogramGraph(int w, int h, int x0, int y0, float min, float max, int r, int g, int b, String label) {
     super(w, h, x0, y0, r, g, b, label);
-    this.tick = (int)(w / (max - min + 1));
+    this.tick = (int)(w / (max - min));
     this.min = min;
     this.max = max;
   }
@@ -27,7 +27,7 @@ public class HistogramGraph extends Graph {
 
     hm.forEach((k, v) -> {
       rect(
-        (map(k, min, max, 0, max - min)) * tick + x0,
+        (map(k, min, max, 0, max - min - 1)) * tick + x0,
         y0 + h,
         tick,
         -map(v, 0, total, 0, h)
@@ -45,7 +45,7 @@ public class HistogramGraph extends Graph {
   void drawConstant(float x, int[] rgba) {
     fill(rgba[0], rgba[1], rgba[2], rgba[3]);
     rect(
-      (map(x, min, max, 0, max - min)) * tick + x0,
+      (map(x, min, max, 0, max - min - 1)) * tick + x0,
       y0 + h,
       tick,
       -h
