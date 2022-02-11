@@ -27,7 +27,7 @@ public class HistogramGraph extends Graph {
 
     hm.forEach((k, v) -> {
       rect(
-        (k - min) * tick + x0,
+        (map(k, min, max, 0, max - min)) * tick + x0,
         y0 + h,
         tick,
         -map(v, 0, total, 0, h)
