@@ -130,7 +130,7 @@ void climateChange() {
     config.climate.currentTemp = random((float)config.climate.winter.min, (float)config.climate.winter.max);
   } else {
     config.climate.currentSeason = Season.spring;
-    config.climate.currentTemp = config.climate.normalTemp;
+    config.climate.currentTemp = config.climate.initialTemp;
   }
 }
 
