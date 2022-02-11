@@ -105,6 +105,11 @@ void draw() {
   amoebaNormalTempGraph.draw(amoebaNormalTemps.toArray(new Float[0]));
   bacteriaSpeedGraph.draw(bacteriaSpeeds.toArray(new Float[0]));
   amoebaSpeedGraph.draw(amoebaSpeeds.toArray(new Float[0]));
+
+  int[] tempColor = Utils.getColorByTemp(config.climate.currentTemp, config.climate.winter.min, config.climate.summer.max);
+
+  bacteriaNormalTempGraph.drawConstant((float)config.climate.currentTemp, tempColor);
+  amoebaNormalTempGraph.drawConstant((float)config.climate.currentTemp, tempColor);
 }
 
 void keyPressed() {

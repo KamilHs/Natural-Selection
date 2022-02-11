@@ -41,4 +41,14 @@ public class HistogramGraph extends Graph {
     }
     pop();
   }
+
+  void drawConstant(float x, int[] rgba) {
+    fill(rgba[0], rgba[1], rgba[2], rgba[3]);
+    rect(
+      (map(x, min, max, 0, max - min)) * tick + x0,
+      y0 + h,
+      tick,
+      -h
+      );
+  }
 }

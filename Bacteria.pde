@@ -60,8 +60,8 @@ public class Bacteria extends Creature {
     age++;
     float temp = (float)config.climate.currentTemp;
     energy -= energyPerFrame +
-              Math.max((temp - (normalTemp + config.bacteria.temp.get("range"))) * config.bacteria.temp.get("tempEnergyFactor"),0)+
-              Math.max(((normalTemp - config.bacteria.temp.get("range")) - temp) * config.bacteria.temp.get("tempEnergyFactor"),0);
+      Math.max((temp - (normalTemp + config.bacteria.temp.get("range"))) * config.bacteria.temp.get("tempEnergyFactor"), 0)+
+      Math.max(((normalTemp - config.bacteria.temp.get("range")) - temp) * config.bacteria.temp.get("tempEnergyFactor"), 0);
 
     if (energy < 0 || age > config.bacteria.maxAge) {
       alive = false;
@@ -119,12 +119,12 @@ public class Bacteria extends Creature {
 
     double newNormalTemp = Math.max(
       Math.min(
-        normalTemp +
-        randomGaussian() * tempEpsilon,
-        maxNormalTemp
+      normalTemp +
+      randomGaussian() * tempEpsilon,
+      maxNormalTemp
       ),
       minNormalTemp
-    );
+      );
 
     return isAmoeba ? new Amoeba(pos.copy(), newSpeed, newNormalTemp) : new Bacteria(pos.copy(), newSpeed, newNormalTemp);
   }

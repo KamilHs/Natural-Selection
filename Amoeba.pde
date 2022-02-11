@@ -98,12 +98,12 @@ public class Amoeba extends Creature {
 
     double newNormalTemp = Math.max(
       Math.min(
-        normalTemp +
-        randomGaussian() * tempEpsilon,
-        maxNormalTemp
+      normalTemp +
+      randomGaussian() * tempEpsilon,
+      maxNormalTemp
       ),
       minNormalTemp
-    );
+      );
 
     return new Amoeba(pos.copy(), newSpeed, newNormalTemp);
   }
