@@ -8,11 +8,15 @@ LineGraph bacteriaPopulationGraph;
 LineGraph amoebaPopulationGraph;
 HistogramGraph bacteriaSpeedGraph;
 HistogramGraph amoebaSpeedGraph;
+PImage amoebaImage, bacteriaImage;
 
 void setup() {
   fullScreen();
   noStroke();
   config = new Config("../config/1.json");
+  bacteriaImage = loadImage("./assets/Bacteria.png");
+  amoebaImage = loadImage("./assets/Amoeba.png");
+
   for (int i = 0; i < config.flesh.count; ++i) {
     entities.add(new Flesh());
   }

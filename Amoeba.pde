@@ -17,13 +17,8 @@ public class Amoeba extends Creature {
     translate(pos.x, pos.y);
     rotate(dir.mult(speed).heading());
     fill(255, 0, 255);
-    rectMode(CENTER);
-    rect(
-      0,
-      0,
-      config.amoeba.width,
-      config.amoeba.height
-      );
+    imageMode(CENTER);
+    image(amoebaImage, 0, 0);
     pop();
   }
 

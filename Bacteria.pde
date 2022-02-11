@@ -16,14 +16,8 @@ public class Bacteria extends Creature {
     push();
     translate(pos.x, pos.y);
     rotate(dir.heading());
-    fill(255, 0, 0);
-    rectMode(CENTER);
-    rect(
-      0,
-      0,
-      config.bacteria.width,
-      config.bacteria.height
-      );
+    imageMode(CENTER);
+    image(bacteriaImage, 0, 0);
     pop();
   }
 
