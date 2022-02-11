@@ -5,21 +5,13 @@ public class LineGraph extends Graph {
     this.tick = tick;
   }
 
-  void draw(Float[] data) {
+  void draw(Float[] data, int min, int max) {
     push();
     fill(255);
     stroke(0);
     rect(x0, y0, w, h);
     noStroke();
     fill(r, g, b);
-
-    float min = Float.MAX_VALUE;
-    float max = Float.MIN_VALUE;
-
-    for (Float d : data) {
-      min = Math.min(min, (float) d);
-      max = Math.max(max, (float) d);
-    }
 
     for (int i = 0; i < data.length; ++i) {
       float mapped = map((float)data[i], (float)min, (float) max, 0, h);

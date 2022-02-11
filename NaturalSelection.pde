@@ -9,6 +9,8 @@ LineGraph amoebaPopulationGraph;
 HistogramGraph bacteriaSpeedGraph;
 HistogramGraph amoebaSpeedGraph;
 PImage amoebaImage, bacteriaImage;
+int maxBacteriaPopulation = 0;
+int maxAmoebaPopulation = 0;
 
 void setup() {
   fullScreen();
@@ -53,8 +55,8 @@ void draw() {
   ArrayList<Float> bacteriaSpeeds = new ArrayList<Float>();
   ArrayList<Float> amoebaSpeeds = new ArrayList<Float>();
 
-  float bacteriaCount = 0;
-  float amoebaCount = 0;
+  int bacteriaCount = 0;
+  int amoebaCount = 0;
 
   for (Entity entity : entities) {
     entity.draw();
@@ -79,8 +81,10 @@ void draw() {
   }
 
   if (frameCount % 5 == 0) {
-    bacteriaPopulations.add(bacteriaCount);
-    amoebaPopulations.add(amoebaCount);
+    bacteriaPopulations.add((float)bacteriaCount);
+    amoebaPopulations.add((float)amoebaCount);
+    maxBacteriaPopulation = max(bacteriaCount, maxBacteriaPopulation);
+    maxAmoebaPopulation = max(amoebaCount, maxAmoebaPopulation);
   }
 
   if (bacteriaPopulations.size() > displayWidth / 2) {
@@ -93,8 +97,8 @@ void draw() {
 
   entities.addAll(added);
 
-  bacteriaPopulationGraph.draw(bacteriaPopulations.toArray(new Float[0]));
-  amoebaPopulationGraph.draw(amoebaPopulations.toArray(new Float[0]));
+  bacteriaPopulationGraph.draw(bacteriaPopulations.toArray(new Float[0]), 0, maxBacteriaPopulation);
+  amoebaPopulationGraph.draw(amoebaPopulations.toArray(new Float[0]), 0, maxAmoebaPopulation);
   bacteriaSpeedGraph.draw(bacteriaSpeeds.toArray(new Float[0]));
   amoebaSpeedGraph.draw(amoebaSpeeds.toArray(new Float[0]));
 }
