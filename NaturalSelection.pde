@@ -124,13 +124,13 @@ void climateChange() {
     config.climate.currentTemp = random((float)config.climate.summer.min, (float)config.climate.summer.max);
   } else if (config.climate.currentSeason == Season.summer) {
     config.climate.currentSeason = Season.autumn;
-    config.climate.currentTemp = config.climate.normalTemp;
+    config.climate.currentTemp = random((float)config.climate.winter.max, (float)config.climate.summer.min);
   } else if (config.climate.currentSeason == Season.autumn) {
     config.climate.currentSeason = Season.winter;
     config.climate.currentTemp = random((float)config.climate.winter.min, (float)config.climate.winter.max);
   } else {
     config.climate.currentSeason = Season.spring;
-    config.climate.currentTemp = config.climate.normalTemp;
+    config.climate.currentTemp = config.climate.initialTemp;
   }
 }
 
